@@ -54,7 +54,7 @@
     "StorageNeededInGB" : {
       "Type" : "String",
       "Description" : "Amount of storage needed",
-      "Default": "10"
+      "Default": "2"
     }
     
   },
@@ -244,7 +244,20 @@
                   "runas=root\n"
                 ]]}
               }
-            }
+            },
+
+	    "commands" : {
+	      "01-format-volume" : {
+                "command" : "mkfs.ext4 -m 0 /dev/xvdf"     
+              },
+              "02-create-mount-point" : {
+                "command" : "mkdir /data"     
+              },
+              "03-mount-volume" : {
+                "command" : "mount /dev/xvdf /data"     
+              },
+	    }
+
           }
         }
       },
