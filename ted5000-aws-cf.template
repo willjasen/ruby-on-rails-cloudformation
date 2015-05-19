@@ -255,7 +255,10 @@
               },
               "03-mount-volume" : {
                 "command" : "mount /dev/xvdf /data"     
-              }
+              },
+	      "04-add-fstab" : {
+		"command" : "echo "/dev/xvdf /data ext4 defaults,nofail 0 2" >> /etc/fstab"
+	      }
 	    },
 
 	   "packages" : {
