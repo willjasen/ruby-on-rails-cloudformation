@@ -53,8 +53,8 @@
     
     "StorageNeededInGB" : {
       "Type" : "String",
-      "Description" : "Amount of storage needed",
-      "Default": "2"
+      "Description" : "Amount of storage needed in GB",
+      "Default": "1"
     }
     
   },
@@ -266,7 +266,7 @@
 	   },
 
 	   "sources" : {
-             "/etc/ted5000-collectd-plugin" : "https://github.com/willjasen/ted5000-collectd-plugin/tarball/master"
+             "/etc/ted5000-collectd-plugin" : "https://github.com/willjasen/ted5000-collectd-plugin"
 	   }
 
           }
