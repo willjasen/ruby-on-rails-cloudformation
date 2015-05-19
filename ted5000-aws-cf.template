@@ -258,7 +258,11 @@
               },
 	      "04-add-fstab" : {
 		"command" : "echo "/dev/xvdf /data ext4 defaults,nofail 0 2" >> /etc/fstab"
+	      },
+	      "05-create-symlink" : {
+		"command" : "ln -s /usr/lib/collectd/ted5000.py /etc/ted5000-collectd-plugin/ted5000.py"
 	      }
+
 	    },
 
 	   "packages" : {
