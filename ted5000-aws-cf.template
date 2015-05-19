@@ -255,8 +255,19 @@
               },
               "03-mount-volume" : {
                 "command" : "mount /dev/xvdf /data"     
-              },
-	    }
+              }
+	    },
+
+	   "packages" : {
+	     "yum" : {
+		"python" : [],
+		"collectd" : []
+	     }
+	   },
+
+	   "sources" : {
+             "/etc/ted5000-collectd-plugin" : "https://github.com/willjasen/ted5000-collectd-plugin/tarball/master"
+	   }
 
           }
         }
