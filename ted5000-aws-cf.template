@@ -53,8 +53,8 @@
     
     "StorageNeededInGB" : {
       "Type" : "String",
-      "Description" : "Amount of storage needed in GB",
-      "Default": "1"
+      "Description" : "Amount of storage needed",
+      "Default": "2"
     }
     
   },
@@ -221,7 +221,37 @@
         "Comment" : "TED5000",
         "AWS::CloudFormation::Init" : {
           "config" : {
-            "files" : { 
+            "files" : {
+ 	      
+	      “/etc/collectd.conf” : {
+                "content" : { "Fn::Join" : ["", [
+		  “FQDNLookup true\n”,
+		  “Interval 1\n”,
+		  “LoadPlugin python\n”,
+		  “LoadPlugin logfile\n”,
+		  “LoadPlugin csv\n”,
+		  “<Plugin python>\n”,
+  		  “  ModulePath "/usr/lib/collectd\n”,
+  		  “  Import "ted5000\n”,
+		  “  <Module ted5000>\n”,
+    		  “    Host "ted.willjasen.com\n”,
+    		  “    User "admin\n”,
+    		  “    Password "admin\n”,
+    		  “    SkipZeroes "true\n”,
+    		  “    Verbose "false\n”,
+  		  “  </Module>\n”,
+		  “</Plugin>\n”,
+		  “<Plugin csv\n>”,
+  		  “  DataDir /opt/ted5000/csv\n”,
+		  “</Plugin>\n”,
+		  “<Include /etc/collectd/collectd.conf.d>\n”,
+    		  “  Filter \”*.conf\”\n”,
+		  “</Include>”,
+                ]]},
+                "mode"    : "000700",
+                "owner"   : "root",
+                "group"   : "root"
+              },
               
               "/etc/cfn/cfn-hup.conf" : {
                 "content" : { "Fn::Join" : ["", [
@@ -257,12 +287,11 @@
                 "command" : "mount /dev/xvdf /data"     
               },
 	      "04-add-fstab" : {
-		"command" : "echo "/dev/xvdf /data ext4 defaults,nofail 0 2" >> /etc/fstab"
+		"command" : "echo "/dev/xvdf /data ext4 defaults,nofail 0 2" >> /etcfstab"
 	      },
 	      "05-create-symlink" : {
-		"command" : "ln -s /usr/lib/collectd/ted5000.py /etc/ted5000-collectd-plugin/ted5000.py"
+		"command" : "ln -s /usr/lib/collectd/ted5000.py /etc/ted5000collectdplugin/ted5000.py"
 	      }
-
 	    },
 
 	   "packages" : {
@@ -273,7 +302,7 @@
 	   },
 
 	   "sources" : {
-             "/etc/ted5000-collectd-plugin" : "https://github.com/willjasen/ted5000-collectd-plugin"
+             "/etc/ted5000-collectd-plugin" : "https://github.com/willjasen/ted5000-collectd-plugin/tarball/master"
 	   }
 
           }
