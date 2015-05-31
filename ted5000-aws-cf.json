@@ -272,7 +272,8 @@
                 "ruby-devel"          : [],
                 "rubygems"            : [],
                 "rubygem-io-console"  : [],
-                "patch"               : []
+                "patch"               : [],
+                "zlib-devel"          : []
               }
             },
             "commands" : {
