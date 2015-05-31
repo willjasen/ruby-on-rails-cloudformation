@@ -49,7 +49,23 @@
       "MaxLength": "18",
       "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    },
+
+    "DBName" : {
+      "Type" : "String",
+      "Description" : "Hostname of the database"
+    },
+
+    "DBUser" : {
+      "Type" : "String",
+      "Description" : "User of the database"
+    },
+
+    "DBPassword" : {
+      "Type" : "String",
+      "Description" : "Password of database user"
     }
+
   },
   
   "Mappings": {
