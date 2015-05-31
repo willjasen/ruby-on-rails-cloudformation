@@ -282,9 +282,6 @@
             "commands" : {
               "01_update_gems" : {
                 "command" : "gem update --system"
-              },
-              "02_reload_nokogiri" : {
-                "command" : "gem install --no-ri --no-rdoc nokogiri"
               }
             }
           },
@@ -299,14 +296,13 @@
               "/tmp/database.yml" : {
                "content" : { "Fn::Join" : ["", [
                   "development:\n",
-                  "  adapter: mysql2\n",
+                  "  adapter: postgresql\n",
                   "  encoding: utf8\n",
                   "  reconnect: false\n",
                   "  pool: 5\n",
                   "  database: ", { "Ref" : "DBName" }, "\n",
                   "  username: ", { "Ref" : "DBUser" }, "\n",
-                  "  password: ", { "Ref" : "DBPassword" }, "\n",
-                  "  socket: /var/lib/mysql/mysql.sock\n"
+                  "  password: ", { "Ref" : "DBPassword" }, "\n"
                   ]]},
                 "mode"  : "000400",
                 "owner" : "root",
@@ -322,18 +318,7 @@
                   "# Kill the rails server if it is running to allow update\n",
                   "if pgrep ruby &> /dev/null ; then pkill -TERM ruby ; fi\n",
 
-                  "# This sample template creates a new application inline\n",
-                  "# Typically you would use files and/or sources to download\n",
-                  "# your application package and perform any configuration here.\n",
-
-                  "# Create a new application, with therubyracer javascript library\n",
-                  "rails new sample -d mysql --skip-spring --skip-bundle --force\n",
-                  "cd /home/ec2-user/sample\n",
-                  "sed -i 's/^# \\(.*therubyracer.*$\\)/\\1/' Gemfile\n",
                   "bundle install\n",
-
-                  "# Create a sample scoffold\n",
-                  "rails generate scaffold Note title:string body:text --force\n",
 
                   "# Configure the database connection\n",
                   "mv /tmp/database.yml config\n",
@@ -351,7 +336,7 @@
                   "cd /home/ec2-user/sample\n",
 
                   "# Startup the application\n",
-                  "rails server --binding 0.0.0.0 -p 80 -d\n"
+                  "rails server --binding 0.0.0.0 -p 80 -d -e production\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "root",
