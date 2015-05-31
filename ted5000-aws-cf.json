@@ -376,7 +376,7 @@
           "}\n",
 
           "# Install the simple web page\n",
-          "/opt/aws/bin/cfn-init -v -s ", { "Ref" : "AWS::StackId" }, " -r TED5000Instance ",
+          "/opt/aws/bin/cfn-init -c full_install -v -s ", { "Ref" : "AWS::StackId" }, " -r TED5000Instance ",
           "         --region ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init'\n",
 
           "# Start up the cfn-hup daemon to listen for changes to the instance metadata\n",
