@@ -51,9 +51,14 @@
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
     },
 
-    "DBName" : {
+    "DBHostname" : {
       "Type" : "String",
       "Description" : "Hostname of the database"
+    },
+
+    "DBName" : {
+      "Type" : "String",
+      "Description" : "Name of the database"
     },
 
     "DBUser" : {
@@ -290,6 +295,7 @@
                   "  adapter: postgresql\n",
                   "  encoding: utf8\n",
                   "  pool: 5\n",
+                  "  host: ", { "Ref" : "DBHostname" }, "\n",
                   "  database: ", { "Ref" : "DBName" }, "\n",
                   "  username: ", { "Ref" : "DBUser" }, "\n",
                   "  password: ", { "Ref" : "DBPassword" }, "\n"
