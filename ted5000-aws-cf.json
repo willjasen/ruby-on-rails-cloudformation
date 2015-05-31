@@ -258,10 +258,112 @@
               }
             }
           },
+          
+          "install_ruby" : {
+            "packages" : {
+              "yum" : {
+                "gcc-c++"             : [],
+                "make"                : [],
+                "ruby-devel"          : [],
+                "rubygems"            : [],
+                "rubygem-io-console"  : [],
+                "patch"               : []
+              }
+            },
+            "commands" : {
+              "01_update_gems" : {
+                "command" : "gem update --system"
+              },
+              "02_reload_nokogiri" : {
+                "command" : "gem install --no-ri --no-rdoc nokogiri"
+              }
+            }
+          },
 
+          "install_application" : {
+            "packages" : {
+              "rubygems" : {
+                "rails" : []
+              }
+            },
+            "files" : {
+              "/tmp/database.yml" : {
+               "content" : { "Fn::Join" : ["", [
+                  "development:\n",
+                  "  adapter: mysql2\n",
+                  "  encoding: utf8\n",
+                  "  reconnect: false\n",
+                  "  pool: 5\n",
+                  "  database: ", { "Ref" : "DBName" }, "\n",
+                  "  username: ", { "Ref" : "DBUser" }, "\n",
+                  "  password: ", { "Ref" : "DBPassword" }, "\n",
+                  "  socket: /var/lib/mysql/mysql.sock\n"
+                  ]]},
+                "mode"  : "000400",
+                "owner" : "root",
+                "group" : "root"
+              },
+              "/tmp/install_application" : {
+                "content" : { "Fn::Join" : ["", [
+                  "#!/bin/bash -e\n",
+                  "export HOME=/home/ec2-user\n",
+                  "export PATH=$PATH:/usr/local/bin\n",
+                  "cd /home/ec2-user\n",
 
+                  "# Kill the rails server if it is running to allow update\n",
+                  "if pgrep ruby &> /dev/null ; then pkill -TERM ruby ; fi\n",
 
+                  "# This sample template creates a new application inline\n",
+                  "# Typically you would use files and/or sources to download\n",
+                  "# your application package and perform any configuration here.\n",
 
+                  "# Create a new application, with therubyracer javascript library\n",
+                  "rails new sample -d mysql --skip-spring --skip-bundle --force\n",
+                  "cd /home/ec2-user/sample\n",
+                  "sed -i 's/^# \\(.*therubyracer.*$\\)/\\1/' Gemfile\n",
+                  "bundle install\n",
+
+                  "# Create a sample scoffold\n",
+                  "rails generate scaffold Note title:string body:text --force\n",
+
+                  "# Configure the database connection\n",
+                  "mv /tmp/database.yml config\n",
+                  "rake db:create db:migrate\n"
+                ]]},
+                "mode"  : "000500",
+                "owner" : "root",
+                "group" : "root"
+              },
+              "/home/ec2-user/start-application" : {
+                "content" : { "Fn::Join" : ["", [
+                  "#!/bin/bash -e\n",
+                  "export HOME=/home/ec2-user\n",
+                  "export PATH=$PATH:/usr/local/bin\n",
+                  "cd /home/ec2-user/sample\n",
+
+                  "# Startup the application\n",
+                  "rails server --binding 0.0.0.0 -p 80 -d\n"
+                ]]},
+                "mode"  : "000500",
+                "owner" : "root",
+                "group" : "root"
+              }
+            },
+            "commands" : {
+              "01_install_application" : {
+                "command" : "/tmp/install_application > /var/log/install_application.log"
+              },
+              "02_configure_reboot" : {
+                "command" : "echo /home/ec2-user/start-application >> /etc/rc.local"
+              },
+              "03_start_application" : {
+                "command" : "/home/ec2-user/start-application"
+              },
+              "04_cleanup" : {
+                "command" : "rm /tmp/install_application"
+              }
+            }
+          }
         }  
       },
       "Properties" : {
