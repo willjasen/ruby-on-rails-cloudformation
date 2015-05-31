@@ -223,6 +223,8 @@
           "configSets": {
             "full_install": [
               "install_cfn",
+              "install_mysql",
+              "configure_mysql",
               "install_ruby",
               "install_application"
               ]
@@ -271,100 +273,6 @@
                 }
               }
             }  
-          },
-
-          "install_ruby" : {
-            "packages" : {
-              "yum" : {
-                "gcc-c++"             : [],
-                "make"                : [],
-                "ruby-devel"          : [],
-                "rubygems"            : [],
-                "rubygem-io-console"  : [],
-                "patch"               : []
-              }
-            },
-            "commands" : {
-              "01_update_gems" : {
-                "command" : "gem update --system"
-              }
-            }
-          },
-
-          "install_application" : {
-            "packages" : {
-              "yum" : {
-                "libpq-dev" : []
-              },
-              "rubygems" : {
-                "rails" : []
-              }
-            },
-            "files" : {
-              "/tmp/database.yml" : {
-               "content" : { "Fn::Join" : ["", [
-                  "development:\n",
-                  "  adapter: postgresql\n",
-                  "  encoding: utf8\n",
-                  "  reconnect: false\n",
-                  "  pool: 5\n",
-                  "  database: ", { "Ref" : "DBName" }, "\n",
-                  "  username: ", { "Ref" : "DBUser" }, "\n",
-                  "  password: ", { "Ref" : "DBPassword" }, "\n"
-                  ]]},
-                "mode"  : "000400",
-                "owner" : "root",
-                "group" : "root"
-              },
-              "/tmp/install_application" : {
-                "content" : { "Fn::Join" : ["", [
-                  "#!/bin/bash -e\n",
-                  "export HOME=/home/ec2-user\n",
-                  "export PATH=$PATH:/usr/local/bin\n",
-                  "cd /home/ec2-user\n",
-
-                  "# Kill the rails server if it is running to allow update\n",
-                  "if pgrep ruby &> /dev/null ; then pkill -TERM ruby ; fi\n",
-                 
-                  "bundle install\n",
-
-                  "# Configure the database connection\n",
-                  "mv /tmp/database.yml config\n",
-                  "rake db:create db:migrate\n"
-                ]]},
-                "mode"  : "000500",
-                "owner" : "root",
-                "group" : "root"
-              },
-              "/home/ec2-user/start-application" : {
-                "content" : { "Fn::Join" : ["", [
-                  "#!/bin/bash -e\n",
-                  "export HOME=/home/ec2-user\n",
-                  "export PATH=$PATH:/usr/local/bin\n",
-                  "cd /home/ec2-user/red5000\n",
-
-                  "# Startup the application\n",
-                  "rails server -p 80\n"
-                ]]},
-                "mode"  : "000500",
-                "owner" : "root",
-                "group" : "root"
-              }
-            },
-            "commands" : {
-              "01_install_application" : {
-                "command" : "/tmp/install_application > /var/log/install_application.log"
-              },
-              "02_configure_reboot" : {
-                "command" : "echo /home/ec2-user/start-application >> /etc/rc.local"
-              },
-              "03_start_application" : {
-                "command" : "/home/ec2-user/start-application"
-              },
-              "04_cleanup" : {
-                "command" : "rm /tmp/install_application"
-              }
-            }
           }
         }
       },
