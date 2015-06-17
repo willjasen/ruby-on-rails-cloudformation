@@ -320,8 +320,8 @@
                   "rake db:create db:migrate\n"
                 ]]},
                 "mode"  : "000500",
-                "owner" : "root",
-                "group" : "root"
+                "owner" : "ec2-user",
+                "group" : "ec2-user"
               },
               "/home/ec2-user/start-application" : {
                 "content" : { "Fn::Join" : ["", [
@@ -334,25 +334,13 @@
                   "rails server --binding 0.0.0.0 -p 80 -d -e production\n"
                 ]]},
                 "mode"  : "000500",
-                "owner" : "root",
-                "group" : "root"
+                "owner" : "ec2-user",
+                "group" : "ec2-user"
               }
             },
             "commands" : {
               "01_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
-              },
-              "02_install_application" : {
-                "command" : "/tmp/install_application > /var/log/install_application.log"
-              },
-              "03_configure_reboot" : {
-                "command" : "echo /home/ec2-user/start-application >> /etc/rc.local"
-              },
-              "04_start_application" : {
-                "command" : "/home/ec2-user/start-application"
-              },
-              "05_cleanup" : {
-                "command" : "rm /tmp/install_application"
               }
             }
           }
