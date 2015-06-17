@@ -269,8 +269,6 @@
               "yum" : {
                 "gcc-c++"             : [],
                 "make"                : [],
-                "zlib"                : [],
-                "zlib-devel"          : [],
                 "ruby-devel"          : [],
                 "rubygems"            : [],
                 "rubygem-io-console"  : [],
@@ -286,9 +284,9 @@
           },
 
           "install_application" : {
-            "packages" : {
-              "rubygems" : {
-                "rails" : []
+            "commands" : {
+              "rails" : {
+                "command" : "gem install rails --no-ri --no-rdoc"
               }
             },
             "files" : {
