@@ -285,9 +285,7 @@
 
           "install_application" : {
             "commands" : {
-              "rails" : {
-                "command" : "gem install rails --no-ri --no-rdoc"
-              }
+              
             },
             "files" : {
               "/tmp/database.yml" : {
@@ -341,16 +339,19 @@
               }
             },
             "commands" : {
-              "01_install_application" : {
+              "01_install_rails" : {
+                "command" : "gem install rails --no-ri --no-rdoc"
+              },
+              "02_install_application" : {
                 "command" : "/tmp/install_application > /var/log/install_application.log"
               },
-              "02_configure_reboot" : {
+              "03_configure_reboot" : {
                 "command" : "echo /home/ec2-user/start-application >> /etc/rc.local"
               },
-              "03_start_application" : {
+              "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               },
-              "04_cleanup" : {
+              "05_cleanup" : {
                 "command" : "rm /tmp/install_application"
               }
             }
