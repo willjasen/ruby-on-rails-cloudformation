@@ -226,7 +226,7 @@
       }
     },
     
-    "TED5000Instance" : {
+    "RubyOnRailsInstance" : {
       "Type" : "AWS::EC2::Instance",
       "Metadata" : {
         "Comment" : "TED5000",
