@@ -209,14 +209,14 @@
          },
          {
             "IpProtocol" : "tcp",
-            "FromPort" : “80”,
-            "ToPort" : “80”,
+            "FromPort" : "80",
+            "ToPort" : "80",
             "CidrIp" : { "Ref" : "AllowedSubnet" }
          },
          {
             "IpProtocol" : "tcp",
-            "FromPort" : “3000”,
-            "ToPort" : “3000”,
+            "FromPort" : "3000",
+            "ToPort" : "3000",
             "CidrIp" : { "Ref" : "AllowedSubnet" }
          }
 
