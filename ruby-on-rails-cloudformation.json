@@ -292,7 +292,8 @@
                 "rubygem-io-console"  : [],
                 "patch"               : [],
                 "zlib-devel"          : [],
-                "sqlite-devel"        : []
+                "sqlite-devel"        : [],
+                "postgresql-devel"  : []
               }
             },
             "commands" : {
