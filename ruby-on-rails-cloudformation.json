@@ -70,6 +70,11 @@
       "Type" : "String",
       "Description" : "Password of database user",
       "NoEcho" : "true"
+    },
+      
+    "RubyOnRailsProjectURL" : {
+      "Type" : "String",
+      "Description" : "HTTP URL of Ruby on Rails project to deploy"
     }
 
   },
@@ -326,7 +331,7 @@
                   "#!/bin/bash -e\n",
                   "export HOME=/home/ec2-user\n",
                   "export PATH=$PATH:/usr/local/bin\n",
-                  "cd /home/ec2-user/sample\n",
+                  "cd /home/ec2-user/code\n",
 
                   "# Startup the application\n",
                   "rails server --binding 0.0.0.0 -p 80 -d -e production\n"
