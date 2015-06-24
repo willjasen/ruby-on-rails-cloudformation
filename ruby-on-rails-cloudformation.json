@@ -228,7 +228,7 @@
     "RubyOnRailsInstance" : {
       "Type" : "AWS::EC2::Instance",
       "Metadata" : {
-        "Comment" : "TED5000",
+        "Comment" : "Ruby On Rails",
         "AWS::CloudFormation::Init" : {
           "configSets" : {
             "full_install" : [ "install_cfn", "install_ruby", "install_application" ]
