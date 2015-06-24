@@ -278,7 +278,8 @@
                 "rubygems"            : [],
                 "rubygem-io-console"  : [],
                 "patch"               : [],
-                "zlib-devel"          : []
+                "zlib-devel"          : [],
+                "sqlite-devel"        : []
               }
             },
             "commands" : {
