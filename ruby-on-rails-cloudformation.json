@@ -340,6 +340,9 @@
                 "group" : "ec2-user"
               }
             },
+            "sources" : {
+                "/home/ec2-user/project" : { "Ref" : "RubyOnRailsProjectURL" }
+            },
             "commands" : {
               "01_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
