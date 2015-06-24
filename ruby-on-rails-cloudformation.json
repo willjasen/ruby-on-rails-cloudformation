@@ -15,7 +15,6 @@
     "KeyName": {
       "Description" : "The name of an existing EC2 keypair for this instance",
       "Type": "AWS::EC2::KeyPair::KeyName",
-      "Default": "TED5000",
       "MinLength": "1",
       "MaxLength": "255",
       "AllowedPattern" : "[\\x20-\\x7E]*",
