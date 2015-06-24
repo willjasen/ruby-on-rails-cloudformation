@@ -332,8 +332,9 @@
                   "export PATH=$PATH:/usr/local/bin\n",
                   "cd /home/ec2-user/project\n",
 
-                  "# Startup the application\n",
-                  "rails server --binding 0.0.0.0 -p 80 -d -e production\n"
+                  "# Startup the application in development mode\n",
+                  "# rails server --binding 0.0.0.0 -p 80 -d -e production\n",
+                  "rails server --binding 0.0.0.0 -p 80 -d -e development\n",
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
