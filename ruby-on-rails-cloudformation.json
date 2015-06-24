@@ -86,7 +86,7 @@
   
   "Resources" : {
 
-    "TED5000VPC" : {
+    "RubyOnRailsVPC" : {
       "Type" : "AWS::EC2::VPC",
       "Properties" : {
         "EnableDnsSupport" : "true",
@@ -94,7 +94,7 @@
         "CidrBlock" : { "Ref" : "VPCCIDR" },
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
-          { "Key" : "Network", "Value" : "TED5000VPC" }
+          { "Key" : "Network", "Value" : "RubyOnRailsVPC" }
         ]
       }
     },
@@ -102,7 +102,7 @@
     "PrivateSubnet" : {
       "Type" : "AWS::EC2::Subnet",
       "Properties" : {
-        "VpcId" : { "Ref" : "TED5000VPC" },
+        "VpcId" : { "Ref" : "RubyOnRailsVPC" },
         "CidrBlock" : { "Ref" : "SubnetCIDR" },
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
@@ -114,7 +114,7 @@
     "PrivateRouteTable" : {
       "Type" : "AWS::EC2::RouteTable",
       "Properties" : {
-        "VpcId" : { "Ref" : "TED5000VPC" },
+        "VpcId" : { "Ref" : "RubyOnRailsVPC" },
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
           { "Key" : "Network", "Value" : "VPC Subnet" }
@@ -137,7 +137,7 @@
     "AttachInternetGateway" : {
       "Type" : "AWS::EC2::VPCGatewayAttachment",
       "Properties" : {
-        "VpcId" : { "Ref" : "TED5000VPC" },
+        "VpcId" : { "Ref" : "RubyOnRailsVPC" },
         "InternetGatewayId" : { "Ref" : "InternetGateway" }
       }
     },
@@ -154,7 +154,7 @@
     "PrivateNetworkAcl" : {
       "Type" : "AWS::EC2::NetworkAcl",
       "Properties" : {
-        "VpcId" : { "Ref" : "TED5000VPC" },
+        "VpcId" : { "Ref" : "RubyOnRailsVPC" },
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
           { "Key" : "Network", "Value" : "Private" }
@@ -200,7 +200,7 @@
    	  "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
         "GroupDescription" : "Allow traffic to these ports",
-        "VpcId" : {"Ref" : "TED5000VPC"},
+        "VpcId" : {"Ref" : "RubyOnRailsVPC"},
         "SecurityGroupIngress" : [{
             "IpProtocol" : "tcp",
             "FromPort" : "22",
@@ -363,7 +363,7 @@
           "# Helper function\n",
           "function error_exit\n",
           "{\n",
-          "  /opt/aws/bin/cfn-signal -e 1 -r \"$1\" '", { "Ref" : "TED5000WaitHandle" }, "'\n",
+          "  /opt/aws/bin/cfn-signal -e 1 -r \"$1\" '", { "Ref" : "RubyOnRailsWaitHandle" }, "'\n",
           "  exit 1\n",
           "}\n",
 
@@ -375,12 +375,12 @@
           "/opt/aws/bin/cfn-hup || error_exit 'Failed to start cfn-hup'\n",
 
           "# All done so signal success\n",
-          "/opt/aws/bin/cfn-signal -e 0 -r \"TED5000 instance setup complete\" '", { "Ref" : "TED5000WaitHandle" }, "'\n"
+          "/opt/aws/bin/cfn-signal -e 0 -r \"TED5000 instance setup complete\" '", { "Ref" : "RubyOnRailsWaitHandle" }, "'\n"
         ]]}}
       }
     },
 
-    "TED5000WaitHandle" : {
+    "RubyOnRailsWaitHandle" : {
       "Type" : "AWS::CloudFormation::WaitConditionHandle"
     },
 
@@ -388,7 +388,7 @@
       "Type" : "AWS::CloudFormation::WaitCondition",
       "DependsOn" : "RubyOnRailsInstance",
       "Properties" : {
-        "Handle" : {"Ref" : "TED5000WaitHandle"},
+        "Handle" : {"Ref" : "RubyOnRailsWaitHandle"},
         "Timeout" : "3600"
       }
     }
@@ -397,7 +397,7 @@
   "Outputs" : {
     "VPCId" : {
       "Description" : "VPCId of the newly created VPC",
-      "Value" :  { "Ref" : "TED5000VPC" }
+      "Value" :  { "Ref" : "RubyOnRailsVPC" }
     },
     "PrivateSubnet" : {
       "Description" : "SubnetId of the VPN connected subnet",
