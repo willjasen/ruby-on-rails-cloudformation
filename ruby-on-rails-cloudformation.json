@@ -208,6 +208,13 @@
             "CidrIp" : { "Ref" : "AllowedSubnet" }
          }
          ],
+        "SecurityGroupIngress" : [{
+            "IpProtocol" : "tcp",
+            "FromPort" : “80”,
+            "ToPort" : “80”,
+            "CidrIp" : { "Ref" : "AllowedSubnet" }
+         }
+         ],
         "SecurityGroupEgress" : [{
          "IpProtocol" : "-1",
          "FromPort" : "-1",
