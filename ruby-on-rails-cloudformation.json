@@ -375,7 +375,7 @@
           "/opt/aws/bin/cfn-hup || error_exit 'Failed to start cfn-hup'\n",
 
           "# All done so signal success\n",
-          "/opt/aws/bin/cfn-signal -e 0 -r \"TED5000 instance setup complete\" '", { "Ref" : "RubyOnRailsWaitHandle" }, "'\n"
+          "/opt/aws/bin/cfn-signal -e 0 -r \"Ruby On Rails instance setup complete\" '", { "Ref" : "RubyOnRailsWaitHandle" }, "'\n"
         ]]}}
       }
     },
@@ -384,7 +384,7 @@
       "Type" : "AWS::CloudFormation::WaitConditionHandle"
     },
 
-    "TED5000WaitCondition" : {
+    "RubyOnRailsWaitCondition" : {
       "Type" : "AWS::CloudFormation::WaitCondition",
       "DependsOn" : "RubyOnRailsInstance",
       "Properties" : {
