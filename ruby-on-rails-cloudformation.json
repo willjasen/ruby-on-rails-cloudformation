@@ -331,6 +331,8 @@
                   "export HOME=/home/ec2-user\n",
                   "export PATH=$PATH:/usr/local/bin\n",
                   "cd /home/ec2-user/project\n",
+                                                 
+                  "bundle install\n",
 
                   "# Startup the application in development mode\n",
                   "# rails server --binding 0.0.0.0 -p 80 -d -e production\n",
