@@ -221,7 +221,7 @@
     "PublicIP" : {
       "Type" : "AWS::EC2::EIP",  
       "Properties" : {
-        "InstanceId" : { "Ref" : "TED5000Instance" },
+        "InstanceId" : { "Ref" : "RubyOnRailsInstance" },
         "Domain" : "vpc"
       }
     },
@@ -251,10 +251,10 @@
                 "content": { "Fn::Join" : ["", [
                   "[cfn-auto-reloader-hook]\n",
                   "triggers=post.update\n",
-                  "path=Resources.TED5000Instance.Metadata.AWS::CloudFormation::Init\n",
+                  "path=Resources.RubyOnRailsInstance.Metadata.AWS::CloudFormation::Init\n",
                   "action=/opt/aws/bin/cfn-init -v ",
                   "         --stack ", { "Ref" : "AWS::StackName" },
-                  "         --resource TED5000Instance ",
+                  "         --resource RubyOnRailsInstance ",
                   "         --configsets full_install ",
                   "         --region ", { "Ref" : "AWS::Region" }, "\n",
                   "runas=root\n"
@@ -369,7 +369,7 @@
           "}\n",
 
           "# Install the simple web page\n",
-          "/opt/aws/bin/cfn-init -c full_install -v -s ", { "Ref" : "AWS::StackId" }, " -r TED5000Instance ",
+          "/opt/aws/bin/cfn-init -c full_install -v -s ", { "Ref" : "AWS::StackId" }, " -r RubyOnRailsInstance ",
           "         --region ", { "Ref" : "AWS::Region" }, " || error_exit 'Failed to run cfn-init'\n",
 
           "# Start up the cfn-hup daemon to listen for changes to the instance metadata\n",
@@ -387,7 +387,7 @@
 
     "TED5000WaitCondition" : {
       "Type" : "AWS::CloudFormation::WaitCondition",
-      "DependsOn" : "TED5000Instance",
+      "DependsOn" : "RubyOnRailsInstance",
       "Properties" : {
         "Handle" : {"Ref" : "TED5000WaitHandle"},
         "Timeout" : "3600"
