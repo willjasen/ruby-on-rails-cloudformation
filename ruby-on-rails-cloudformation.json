@@ -346,6 +346,9 @@
             "commands" : {
               "01_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
+              },
+              "02_start_application" : {
+                "command" : "/home/ec2-user/start-application"
               }
             }
           }
