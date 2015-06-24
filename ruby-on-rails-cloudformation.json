@@ -285,9 +285,6 @@
           },
 
           "install_application" : {
-            "commands" : {
-              
-            },
             "files" : {
               "/tmp/database.yml" : {
                "content" : { "Fn::Join" : ["", [
