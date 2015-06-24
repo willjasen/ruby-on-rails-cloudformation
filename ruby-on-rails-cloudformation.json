@@ -68,7 +68,8 @@
 
     "DBPassword" : {
       "Type" : "String",
-      "Description" : "Password of database user"
+      "Description" : "Password of database user",
+      "NoEcho" : "true"
     }
 
   },
