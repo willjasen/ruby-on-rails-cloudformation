@@ -379,7 +379,10 @@
               "02_rake_secret" : {
                 "command" : "export SECRET_KEY_BASE=`rake secret`"
               },
-              "03_start_application" : {
+              "03_create_links" : {
+                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml"
+              },
+              "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               }
             }
