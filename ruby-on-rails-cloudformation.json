@@ -325,7 +325,7 @@
                   "development:\n",
                   "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n",
                   "production:\n",
-                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n",
+                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n"
                   ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
