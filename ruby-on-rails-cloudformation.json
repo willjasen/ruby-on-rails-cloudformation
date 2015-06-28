@@ -316,9 +316,20 @@
                   "  username: ", { "Ref" : "DBUser" }, "\n",
                   "  password: ", { "Ref" : "DBPassword" }, "\n"
                   ]]},
-                "mode"  : "000400",
-                "owner" : "root",
-                "group" : "root"
+                "mode"  : "000500",
+                "owner" : "ec2-user",
+                "group" : "ec2-user"
+              },
+              "/tmp/secrets.yml" : {
+                "content" : { "Fn::Join" : ["", [
+                  "development:\n",
+                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n",
+                  "production:\n",
+                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n",
+                  ]]},
+                "mode"  : "000500",
+                "owner" : "ec2-user",
+                "group" : "ec2-user"
               },
               "/tmp/install_application" : {
                 "content" : { "Fn::Join" : ["", [
@@ -365,7 +376,10 @@
               "01_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
               },
-              "02_start_application" : {
+              "02_rake_secret" : {
+                "command" : "export SECRET_KEY_BASE=`rake secret`"
+              },
+              "03_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               }
             }
