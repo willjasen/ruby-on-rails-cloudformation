@@ -293,7 +293,7 @@
                 "patch"               : [],
                 "zlib-devel"          : [],
                 "sqlite-devel"        : [],
-                "postgresql-devel"  : []
+                "postgresql92-devel"    : []
               }
             },
             "commands" : {
