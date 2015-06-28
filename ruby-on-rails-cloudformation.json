@@ -343,9 +343,10 @@
 
                   "bundle install\n",
 
-                  "# Configure the database connection\n",
-                  "mv /tmp/database.yml config\n",
-                  "rake db:create db:migrate\n"
+                  "# Configure the database connection and secrets\n",
+                  "ln -s /tmp/database.yml config/database.yml\n",
+                  "rake db:create db:migrate\n",
+                  "export SECRET_KEY_BASE=`rake secret`"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
