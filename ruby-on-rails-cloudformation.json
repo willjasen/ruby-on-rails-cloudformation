@@ -346,7 +346,7 @@
                   "# Configure the database connection and secrets\n",
                   "ln -s /tmp/database.yml config/database.yml\n",
                   "rake db:create db:migrate\n",
-                  "export SECRET_KEY_BASE=`rake secret`"
+                  "export SECRET_KEY_BASE=`rake secret`\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
