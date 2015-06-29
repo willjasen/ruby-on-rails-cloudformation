@@ -378,10 +378,10 @@
                 "command" : "gem install rails --no-ri --no-rdoc"
               },
               "02_rake_secret" : {
-                "command" : "export SECRET_KEY_BASE=`rake secret`"
+                "command" : "echo export SECRET_KEY_BASE=`rake secret` > /tmp/secrets.sh"
               },
               "03_create_links" : {
-                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml"
+                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml; ln -s /tmp/secrets.sh /etc/profile.d/secrets.sh"
               },
               "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
