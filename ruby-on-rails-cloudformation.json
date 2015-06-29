@@ -343,10 +343,10 @@
 
                   "bundle install\n",
 
-                  "# Configure the database connection and secrets\n",
-                  "ln -s /tmp/database.yml config/database.yml\n",
+                  "# Configure the database and secrets\n",
                   "rake db:create db:migrate\n",
-                  "export SECRET_KEY_BASE=`rake secret`\n"
+                  "export SECRET_KEY_BASE=`rake secret`\n",
+                  "echo \"export SECRET_KEY_BASE=${SECRET_KEY_BASE}\" > /etc/profile.d/secrets.sh"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
