@@ -336,7 +336,7 @@
                   "#!/bin/bash -e\n",
                   "export HOME=/home/ec2-user\n",
                   "export PATH=$PATH:/usr/local/bin\n",
-                  "cd /home/ec2-user\n",
+                  "cd /home/ec2-user/project\n",
 
                   "# Kill the rails server if it is running to allow update\n",
                   "if pgrep ruby &> /dev/null ; then pkill -TERM ruby ; fi\n",
@@ -358,8 +358,6 @@
                   "export HOME=/home/ec2-user\n",
                   "export PATH=$PATH:/usr/local/bin\n",
                   "cd /home/ec2-user/project\n",
-                                                 
-                  "bundle install\n",
 
                   "# Startup the application in development mode\n",
                   "# rails server --binding 0.0.0.0 -p 80 -d -e production\n",
@@ -377,11 +375,11 @@
               "01_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
               },
-              "02_rake_secret" : {
-                "command" : "echo export SECRET_KEY_BASE=`rake secret` > /tmp/secrets.sh"
+              "02_install_application" : {
+                "command" : "/tmp/install_application"
               },
               "03_create_links" : {
-                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml; ln -s /tmp/secrets.sh /etc/profile.d/secrets.sh"
+                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml"
               },
               "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
