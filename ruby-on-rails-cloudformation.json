@@ -60,7 +60,7 @@
       "Description" : "Name of the database"
     },
 
-    "DBUser" : {
+    "DBUsername" : {
       "Type" : "String",
       "Description" : "User of the database"
     },
