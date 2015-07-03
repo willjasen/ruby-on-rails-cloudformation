@@ -322,7 +322,7 @@
               },
               "/tmp/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
-                  ""
+                  "# Application configuration is here\n"
                   ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
