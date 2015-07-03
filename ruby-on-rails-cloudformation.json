@@ -355,7 +355,7 @@
                 "command" : "/tmp/install_application"
               },
               "03_create_links" : {
-                "command" : "ln -s /tmp/application.yml /home/ec2-user/project/config/application.yml"
+                "command" : "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml"
               },
               "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
