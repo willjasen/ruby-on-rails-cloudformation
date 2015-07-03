@@ -320,12 +320,8 @@
                 "owner" : "ec2-user",
                 "group" : "ec2-user"
               },
-              "/tmp/secrets.yml" : {
+              "/tmp/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
-                  "development:\n",
-                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n",
-                  "production:\n",
-                  "  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n"
                   ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
@@ -345,8 +341,8 @@
 
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate\n",
-                  "export SECRET_KEY_BASE=`rake secret`\n",
-                  "echo \"export SECRET_KEY_BASE=${SECRET_KEY_BASE}\" > /etc/profile.d/secrets.sh"
+                  "echo \"HOSTNAME: localhost\" > /tmp/application.yml\n",
+                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n",
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
@@ -379,7 +375,7 @@
                 "command" : "/tmp/install_application"
               },
               "03_create_links" : {
-                "command" : "ln -s /tmp/secrets.yml /home/ec2-user/project/config/secrets.yml"
+                "command" : "ln -s /tmp/application.yml /home/ec2-user/project/config/application.yml"
               },
               "04_start_application" : {
                 "command" : "/home/ec2-user/start-application"
