@@ -321,8 +321,12 @@
 
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate\n",
-                  "echo \"HOSTNAME: localhost\" > /tmp/application.yml\n",
-                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n"
+                  
+                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n",
+                  "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" > /tmp/application.yml\n",
+                  "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" > /tmp/application.yml\n",
+                  "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" > /tmp/application.yml\n",
+                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" > /tmp/application.yml\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
