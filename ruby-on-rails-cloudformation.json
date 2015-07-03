@@ -299,21 +299,6 @@
 
           "install_application" : {
             "files" : {
-              "/tmp/database.yml" : {
-               "content" : { "Fn::Join" : ["", [
-                  "development:\n",
-                  "  adapter: postgresql\n",
-                  "  encoding: utf8\n",
-                  "  pool: 5\n",
-                  "  host: ", { "Ref" : "DBHostname" }, "\n",
-                  "  database: ", { "Ref" : "DBName" }, "\n",
-                  "  username: ", { "Ref" : "DBUser" }, "\n",
-                  "  password: ", { "Ref" : "DBPassword" }, "\n"
-                  ]]},
-                "mode"  : "000500",
-                "owner" : "ec2-user",
-                "group" : "ec2-user"
-              },
               "/tmp/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
                   "# Application configuration is here\n"
