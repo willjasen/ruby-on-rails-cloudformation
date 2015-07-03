@@ -342,7 +342,7 @@
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate\n",
                   "echo \"HOSTNAME: localhost\" > /tmp/application.yml\n",
-                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n",
+                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
