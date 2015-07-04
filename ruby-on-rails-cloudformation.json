@@ -299,7 +299,7 @@
 
           "install_application" : {
             "files" : {
-              "/tmp/application.yml" : {
+              "/home/ec2-user/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
                   "# Application configuration is here\n"
                   ]]},
@@ -322,11 +322,11 @@
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate\n",
                   
-                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /tmp/application.yml\n",
-                  "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" > /tmp/application.yml\n",
-                  "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" > /tmp/application.yml\n",
-                  "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" > /tmp/application.yml\n",
-                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" > /tmp/application.yml\n"
+                  "echo \"SECRET_KEY_BASE: `rake secret`\" > /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" > /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" > /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" > /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" > /home/ec2-user/application.yml\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
@@ -355,7 +355,7 @@
                 "command" : "gem install rails --no-ri --no-rdoc"
               },
               "02_install_application" : {
-                "command" : "/tmp/install_application"
+                "command" : "/home/ec2-user/install_application"
               },
               "03_create_links" : {
                 "command" : "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml"
