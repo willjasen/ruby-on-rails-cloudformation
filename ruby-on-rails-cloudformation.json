@@ -320,7 +320,7 @@
                   "bundle install\n",
 
                   "# Configure the database and secrets\n",
-                  "rake db:create db:migrate\n",
+                  "rake db:create db:migrate RAILS_ENV=production\n",
                   
                   "echo \"SECRET_KEY_BASE: `rake secret`\" > /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" >> /home/ec2-user/application.yml\n",
@@ -340,7 +340,8 @@
                   "cd /home/ec2-user/project\n",
 
                   "# Startup the application in development mode\n",
-                  "rails server --binding 0.0.0.0 -p 80 -d -e production\n"
+                  "rails server --binding 0.0.0.0 -p 80 -d -e production\n",
+                  "# rails server --binding 0.0.0.0 -p 80 -d -e development\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
