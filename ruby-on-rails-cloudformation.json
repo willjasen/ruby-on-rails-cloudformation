@@ -323,10 +323,10 @@
                   "rake db:create db:migrate\n",
                   
                   "echo \"SECRET_KEY_BASE: `rake secret`\" > /home/ec2-user/application.yml\n",
-                  "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" > /home/ec2-user/application.yml\n",
-                  "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" > /home/ec2-user/application.yml\n",
-                  "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" > /home/ec2-user/application.yml\n",
-                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" > /home/ec2-user/application.yml\n"
+                  "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" >> /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" >> /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" >> /home/ec2-user/application.yml\n",
+                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" >> /home/ec2-user/application.yml\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
