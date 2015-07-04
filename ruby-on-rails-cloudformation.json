@@ -74,6 +74,13 @@
     "RubyOnRailsProjectURL" : {
       "Type" : "String",
       "Description" : "HTTP URL of Ruby on Rails project to deploy"
+    },
+      
+    "Environment" : {
+      "Type" : "String",
+      "Default" : "development",
+      "AllowedValues" : ["development", "test", "production"],
+      "Description" : "Enter development, test, or production"
     }
 
   },
