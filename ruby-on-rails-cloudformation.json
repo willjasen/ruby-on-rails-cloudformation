@@ -333,7 +333,7 @@
                   "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" >> /home/ec2-user/application.yml\n",
                   
                   "# Create links\n",
-                  "echo \"ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml\" >> /home/ec2-user/application.yml\n",
+                  "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml\n",
                                                  
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate RAILS_ENV=", { "Ref" : "RailsEnvironment" }, "\n"
