@@ -348,7 +348,7 @@
 
                   "# Startup the application\n",
                   "rails server --binding 0.0.0.0 -p 80 -d -e ", { "Ref" : "RailsEnvironment" }, "\n",
-                  "nohup RAILS_ENV=", { "Ref" : "RailsEnvironment" } , " recurrent --file config/recurrences.rb > /dev/null 2>&1 &\n"
+                  "# RAILS_ENV=", { "Ref" : "RailsEnvironment" } , " recurrent --file config/recurrences.rb & #> /dev/null 2>&1 &\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
