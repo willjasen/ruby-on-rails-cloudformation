@@ -331,6 +331,9 @@
                   "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" >> /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" >> /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" >> /home/ec2-user/application.yml\n",
+                  
+                  "# Create links\n",
+                  "echo \"ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml\" >> /home/ec2-user/application.yml\n",
                                                  
                   "# Configure the database and secrets\n",
                   "rake db:create db:migrate RAILS_ENV=", { "Ref" : "RailsEnvironment" }, "\n"
@@ -365,10 +368,7 @@
               "02_install_application" : {
                 "command" : "/home/ec2-user/install_application"
               },
-              "03_create_links" : {
-                "command" : "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml"
-              },
-              "04_start_application" : {
+              "03_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               }
             }
