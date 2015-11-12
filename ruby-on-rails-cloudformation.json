@@ -300,7 +300,10 @@
             "commands" : {
               "01_update_gems" : {
                 "command" : "gem update --system"
-              }
+              },
+              "02_install_rails" : {
+                "command" : "gem install rails --no-ri --no-rdoc"
+              },
             }
           },
 
@@ -361,13 +364,10 @@
                 "/home/ec2-user/project" : { "Ref" : "RubyOnRailsProjectURL" }
             },
             "commands" : {
-              "01_install_rails" : {
-                "command" : "gem install rails --no-ri --no-rdoc"
-              },
-              "02_install_application" : {
+              "01_install_application" : {
                 "command" : "/home/ec2-user/install_application"
               },
-              "03_start_application" : {
+              "02_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               }
             }
