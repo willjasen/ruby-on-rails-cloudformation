@@ -303,7 +303,7 @@
               },
               "02_install_rails" : {
                 "command" : "gem install rails --no-ri --no-rdoc"
-              },
+              }
             }
           },
 
