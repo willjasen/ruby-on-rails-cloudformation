@@ -353,7 +353,7 @@
                   "cd /home/ec2-user/project\n",
 
                   "# Startup the application\n",
-                  "bundle exec unicorn -l 80 -D -E ", { "Ref" : "RailsEnvironment" }," -c config/unicorn.rb\n"
+                  "bundle exec unicorn -l 80 -E ", { "Ref" : "RailsEnvironment" }," -D\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
