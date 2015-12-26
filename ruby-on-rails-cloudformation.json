@@ -245,7 +245,7 @@
         "Comment" : "Ruby On Rails",
         "AWS::CloudFormation::Init" : {
           "configSets" : {
-            "full_install" : [ "install_cfn", "install_rails", "install_application" ]
+            "full_install" : [ "install_cfn", "install_rails", "install-application" ]
           },
           "install_cfn" : {
             "files" : {
@@ -300,11 +300,14 @@
             "commands" : {
               "01_update_gems" : {
                 "command" : "gem update --system"
+              },
+              "02_install_rails" : {
+                "command" : "gem install rails --no-ri --no-rdoc"
               }
             }
           },
 
-          "install_application" : {
+          "install-application" : {
             "files" : {
               "/home/ec2-user/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
@@ -314,7 +317,7 @@
                 "owner" : "ec2-user",
                 "group" : "ec2-user"
               },
-              "/home/ec2-user/install_application" : {
+              "/home/ec2-user/install-application" : {
                 "content" : { "Fn::Join" : ["", [
                   "#!/bin/bash -e\n",
                   "export HOME=/home/ec2-user\n",
@@ -325,15 +328,18 @@
                   "if pgrep ruby &> /dev/null ; then pkill -TERM ruby ; fi\n",
 
                   "bundle install\n",
-
-                  "# Configure the database and secrets\n",
-                  "rake db:create db:migrate RAILS_ENV=", { "Ref" : "RailsEnvironment" }, "\n",
                   
                   "echo \"SECRET_KEY_BASE: `rake secret`\" > /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_HOSTNAME: ", { "Ref" : "DBHostname" } ,"\" >> /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_NAME: ", { "Ref" : "DBName" } ,"\" >> /home/ec2-user/application.yml\n",
                   "echo \"DATABASE_USERNAME: ", { "Ref" : "DBUsername" } ,"\" >> /home/ec2-user/application.yml\n",
-                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" >> /home/ec2-user/application.yml\n"
+                  "echo \"DATABASE_PASSWORD: ", { "Ref" : "DBPassword" } ,"\" >> /home/ec2-user/application.yml\n",
+                  
+                  "# Create links\n",
+                  "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml\n",
+                                                 
+                  "# Configure the database and secrets\n",
+                  "rake db:create db:migrate RAILS_ENV=", { "Ref" : "RailsEnvironment" }, "\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
@@ -346,8 +352,8 @@
                   "export PATH=$PATH:/usr/local/bin\n",
                   "cd /home/ec2-user/project\n",
 
-                  "# Startup the application in development mode\n",
-                  "rails server --binding 0.0.0.0 -p 80 -d -e ", { "Ref" : "RailsEnvironment" }, "\n"
+                  "# Startup the application\n",
+                  "bundle exec unicorn -l 80 -E ", { "Ref" : "RailsEnvironment" }," -D\n"
                 ]]},
                 "mode"  : "000500",
                 "owner" : "ec2-user",
@@ -358,16 +364,10 @@
                 "/home/ec2-user/project" : { "Ref" : "RubyOnRailsProjectURL" }
             },
             "commands" : {
-              "01_install_rails" : {
-                "command" : "gem install rails --no-ri --no-rdoc"
+              "01_install-application" : {
+                "command" : "/home/ec2-user/install-application"
               },
-              "02_install_application" : {
-                "command" : "/home/ec2-user/install_application"
-              },
-              "03_create_links" : {
-                "command" : "ln -s /home/ec2-user/application.yml /home/ec2-user/project/config/application.yml"
-              },
-              "04_start_application" : {
+              "02_start_application" : {
                 "command" : "/home/ec2-user/start-application"
               }
             }
@@ -380,7 +380,6 @@
         "InstanceType" : { "Ref" : "InstanceType" },
         "KeyName" : { "Ref" : "KeyName" },
         "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ],
-        "PrivateIpAddress": "192.168.10.10",
         "SecurityGroupIds": [ { "Ref": "InstanceSecurityGroup" } ],
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
           "#!/bin/bash\n",
