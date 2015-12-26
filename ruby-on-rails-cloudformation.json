@@ -245,7 +245,7 @@
         "Comment" : "Ruby On Rails",
         "AWS::CloudFormation::Init" : {
           "configSets" : {
-            "full_install" : [ "install_cfn", "install_rails", "install_application" ]
+            "full_install" : [ "install_cfn", "install_rails", "install-application" ]
           },
           "install_cfn" : {
             "files" : {
@@ -307,7 +307,7 @@
             }
           },
 
-          "install_application" : {
+          "install-application" : {
             "files" : {
               "/home/ec2-user/application.yml" : {
                 "content" : { "Fn::Join" : ["", [
@@ -317,7 +317,7 @@
                 "owner" : "ec2-user",
                 "group" : "ec2-user"
               },
-              "/home/ec2-user/install_application" : {
+              "/home/ec2-user/install-application" : {
                 "content" : { "Fn::Join" : ["", [
                   "#!/bin/bash -e\n",
                   "export HOME=/home/ec2-user\n",
@@ -364,8 +364,8 @@
                 "/home/ec2-user/project" : { "Ref" : "RubyOnRailsProjectURL" }
             },
             "commands" : {
-              "01_install_application" : {
-                "command" : "/home/ec2-user/install_application"
+              "01_install-application" : {
+                "command" : "/home/ec2-user/install-application"
               },
               "02_start_application" : {
                 "command" : "/home/ec2-user/start-application"
